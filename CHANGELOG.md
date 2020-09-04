@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.8-3 (2020/09/04)
+
+* Cryptomator 1.5.8
+
 ## 1.5.7-2 (2020/08/20)
 
 * Cryptomator 1.5.7
