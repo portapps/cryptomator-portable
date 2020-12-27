@@ -33,16 +33,16 @@ func main() {
 	ipcPortPath := "../data/ipcPort.bin"
 	keychainPath := "../data/keychain.json"
 
-	if err := utl.ReplaceByPrefix(utl.PathJoin(app.AppPath, "app", "Cryptomator.cfg"), "-Dcryptomator.logDir=", "-Dcryptomator.logDir="+logDir); err != nil {
+	if err := utl.ReplaceByPrefix(utl.PathJoin(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.logDir=", "java-options=-Dcryptomator.logDir="+logDir); err != nil {
 		log.Fatal().Err(err).Msg("Cannot set logDir")
 	}
-	if err := utl.ReplaceByPrefix(utl.PathJoin(app.AppPath, "app", "Cryptomator.cfg"), "-Dcryptomator.settingsPath=", "-Dcryptomator.settingsPath="+settingsPath); err != nil {
+	if err := utl.ReplaceByPrefix(utl.PathJoin(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.settingsPath=", "java-options=-Dcryptomator.settingsPath="+settingsPath); err != nil {
 		log.Fatal().Err(err).Msg("Cannot set settingsPath")
 	}
-	if err := utl.ReplaceByPrefix(utl.PathJoin(app.AppPath, "app", "Cryptomator.cfg"), "-Dcryptomator.ipcPortPath=", "-Dcryptomator.ipcPortPath="+ipcPortPath); err != nil {
+	if err := utl.ReplaceByPrefix(utl.PathJoin(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.ipcPortPath=", "java-options=-Dcryptomator.ipcPortPath="+ipcPortPath); err != nil {
 		log.Fatal().Err(err).Msg("Cannot set ipcPortPath")
 	}
-	if err := utl.ReplaceByPrefix(utl.PathJoin(app.AppPath, "app", "Cryptomator.cfg"), "-Dcryptomator.keychainPath=", "-Dcryptomator.keychainPath="+keychainPath); err != nil {
+	if err := utl.ReplaceByPrefix(utl.PathJoin(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.keychainPath=", "java-options=-Dcryptomator.keychainPath="+keychainPath); err != nil {
 		log.Fatal().Err(err).Msg("Cannot set keychainPath")
 	}
 
