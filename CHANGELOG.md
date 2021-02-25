@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.13-5 (2021/02/25)
+
+* Cryptomator 1.5.13
+* Portapps 3.2.2
+
 ## 1.5.11-5 (2020/12/27)
 
 * Fix settings path (#10)
