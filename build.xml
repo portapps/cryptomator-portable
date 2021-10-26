@@ -16,4 +16,17 @@
 <!-- Targets -->
 <target name="release" depends="release.app" description="Release"/>
 
+<target name="prepare">
+  <echo message="Preparing release..."/>
+  <move todir="${tmp.path}\extract2">
+    <fileset dir="${extract.path}\${msi.app}\Cryptomator" defaultexcludes="no">
+      <exclude name="web/**"/>
+    </fileset>
+  </move>
+  <delete dir="${extract.path}"/>
+  <move todir="${extract.path}\${msi.app}">
+    <fileset dir="${tmp.path}\extract2" defaultexcludes="no"/>
+  </move>
+</target>
+
 </project>

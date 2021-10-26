@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.6.1-8 (2021/10/27)
+
+* Cryptomator 1.6.1
+* Switch to MSI artifact
+* Portapps 3.3.1
+
 ## 1.5.16-7 (2021/05/22)
 
 * Cryptomator 1.5.16
