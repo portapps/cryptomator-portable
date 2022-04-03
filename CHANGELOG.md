@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.6.8-9 (2022/04/03)
+
+* Cryptomator 1.6.8
+
 ## 1.6.1-8 (2021/10/27)
 
 * Cryptomator 1.6.1
