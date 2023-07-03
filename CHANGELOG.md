@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.9.1-12 (2023/07/03)
+
+* Cryptomator 1.9.1
+* Portapps 3.8.0
+
 ## 1.7.3-11 (2023/04/02)
 
 * Cryptomator 1.7.3
