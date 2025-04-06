@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.15.2-15 (2025/04/06)
+
+* Cryptomator 1.15.2
+* Portapps 3.16.0
+
 ## 1.14.0-14 (2024/11/12)
 
 * Cryptomator 1.14.0
