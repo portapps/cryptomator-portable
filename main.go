@@ -1,10 +1,10 @@
 //go:generate go install -v github.com/josephspurrier/goversioninfo/cmd/goversioninfo
-//go:generate goversioninfo -icon=res/papp.ico -manifest=res/papp.manifest
 package main
 
 import (
 	"encoding/json"
 	"os"
+	"path/filepath"
 
 	"github.com/portapps/portapps/v3"
 	"github.com/portapps/portapps/v3/pkg/log"
@@ -25,8 +25,8 @@ func init() {
 }
 
 func main() {
-	utl.CreateFolder(utl.PathJoin(app.DataPath, "log"))
-	app.Process = utl.PathJoin(app.AppPath, "Cryptomator.exe")
+	utl.CreateFolder(filepath.Join(app.DataPath, "log"))
+	app.Process = filepath.Join(app.AppPath, "Cryptomator.exe")
 
 	log.Info().Msg("Updating configuration...")
 	logDir := "../data/log"
@@ -37,34 +37,34 @@ func main() {
 	keychainPath := "../data/keychain.json"
 	p12Path := "../data/key.p12"
 
-	if err := utl.ReplaceByPrefix(utl.PathJoin(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.logDir=", "java-options=-Dcryptomator.logDir="+logDir); err != nil {
+	if err := utl.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.logDir=", "java-options=-Dcryptomator.logDir="+logDir); err != nil {
 		log.Fatal().Err(err).Msg("Cannot set logDir")
 	}
-	if err := utl.ReplaceByPrefix(utl.PathJoin(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.pluginDir=", "java-options=-Dcryptomator.pluginDir="+pluginDir); err != nil {
+	if err := utl.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.pluginDir=", "java-options=-Dcryptomator.pluginDir="+pluginDir); err != nil {
 		log.Fatal().Err(err).Msg("Cannot set pluginDir")
 	}
-	if err := utl.ReplaceByPrefix(utl.PathJoin(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.settingsPath=", "java-options=-Dcryptomator.settingsPath="+settingsPath); err != nil {
+	if err := utl.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.settingsPath=", "java-options=-Dcryptomator.settingsPath="+settingsPath); err != nil {
 		log.Fatal().Err(err).Msg("Cannot set settingsPath")
 	}
-	if err := utl.ReplaceByPrefix(utl.PathJoin(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.ipcPortPath=", "java-options=-Dcryptomator.ipcPortPath="+ipcPortPath); err != nil {
+	if err := utl.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.ipcPortPath=", "java-options=-Dcryptomator.ipcPortPath="+ipcPortPath); err != nil {
 		log.Fatal().Err(err).Msg("Cannot set ipcPortPath")
 	}
-	if err := utl.ReplaceByPrefix(utl.PathJoin(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.ipcSocketPath=", "java-options=-Dcryptomator.ipcSocketPath="+ipcSocketPath); err != nil {
+	if err := utl.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.ipcSocketPath=", "java-options=-Dcryptomator.ipcSocketPath="+ipcSocketPath); err != nil {
 		log.Fatal().Err(err).Msg("Cannot set ipcSocketPath")
 	}
-	if err := utl.ReplaceByPrefix(utl.PathJoin(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.integrationsWin.keychainPaths=", "java-options=-Dcryptomator.integrationsWin.keychainPaths="+keychainPath); err != nil {
+	if err := utl.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.integrationsWin.keychainPaths=", "java-options=-Dcryptomator.integrationsWin.keychainPaths="+keychainPath); err != nil {
 		log.Fatal().Err(err).Msg("Cannot set keychainPath")
 	}
-	if err := utl.ReplaceByPrefix(utl.PathJoin(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.p12Path=", "java-options=-Dcryptomator.p12Path="+p12Path); err != nil {
+	if err := utl.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.p12Path=", "java-options=-Dcryptomator.p12Path="+p12Path); err != nil {
 		log.Fatal().Err(err).Msg("Cannot set p12Path")
 	}
 
 	// Create folders
-	_ = utl.CreateFolder(utl.PathJoin(app.DataPath, "log"))
-	_ = utl.CreateFolder(utl.PathJoin(app.DataPath, "plugins"))
+	_ = utl.CreateFolder(filepath.Join(app.DataPath, "log"))
+	_ = utl.CreateFolder(filepath.Join(app.DataPath, "plugins"))
 
 	// Update settings
-	settingsFile := utl.PathJoin(app.DataPath, "settings.json")
+	settingsFile := filepath.Join(app.DataPath, "settings.json")
 	if _, err := os.Stat(settingsFile); err == nil {
 		log.Info().Msg("Updating settings...")
 		rawSettings, err := os.ReadFile(settingsFile)
