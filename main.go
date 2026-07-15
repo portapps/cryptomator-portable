@@ -58,6 +58,9 @@ func main() {
 	if err := utl.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.p12Path=", "java-options=-Dcryptomator.p12Path="+p12Path); err != nil {
 		log.Fatal().Err(err).Msg("Cannot set p12Path")
 	}
+	if err := utl.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.disableUpdateCheck=", "java-options=-Dcryptomator.disableUpdateCheck=true"); err != nil {
+		log.Fatal().Err(err).Msg("Cannot set disableUpdateCheck")
+	}
 
 	// Create folders
 	_ = utl.CreateFolder(filepath.Join(app.DataPath, "log"))
@@ -75,7 +78,6 @@ func main() {
 			}
 			log.Info().Interface("settings", jsonMapSettings).Msg("Current settings")
 
-			jsonMapSettings["askedForUpdateCheck"] = false
 			jsonMapSettings["checkForUpdatesEnabled"] = false
 			log.Info().Interface("settings", jsonMapSettings).Msg("New settings")
 
@@ -90,7 +92,6 @@ func main() {
 	} else {
 		log.Info().Msg("Initializing settings...")
 		if err = os.WriteFile(settingsFile, []byte(`{
-  "askedForUpdateCheck": false,
   "checkForUpdatesEnabled": false
 }`), 0644); err != nil {
 			log.Error().Err(err).Msg("Write settings")
