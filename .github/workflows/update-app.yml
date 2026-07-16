@@ -162,8 +162,8 @@ jobs:
             }
 
             let updatedContent = replaceProperty(currentContent, 'app.version', latest.version);
-            const appChanged = updatedContent !== currentContent;
-            const nextRelease = appChanged ? currentRelease + 1 : currentRelease;
+            const versionChanged = updatedContent !== currentContent;
+            const nextRelease = versionChanged ? currentRelease + 1 : currentRelease;
             updatedContent = replaceProperty(updatedContent, 'app.release', String(nextRelease));
 
             if (updatedContent !== currentContent) {
