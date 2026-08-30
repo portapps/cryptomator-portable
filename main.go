@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 
 	"github.com/portapps/portapps/v3"
+	"github.com/portapps/portapps/v3/pkg/files"
 	"github.com/portapps/portapps/v3/pkg/log"
-	"github.com/portapps/portapps/v3/pkg/utl"
 )
 
 var (
@@ -25,7 +25,9 @@ func init() {
 }
 
 func main() {
-	utl.CreateFolder(filepath.Join(app.DataPath, "log"))
+	if err := os.MkdirAll(filepath.Join(app.DataPath, "log"), 0o755); err != nil {
+		log.Fatal().Err(err).Msg("Cannot create log path")
+	}
 	app.Process = filepath.Join(app.AppPath, "Cryptomator.exe")
 
 	log.Info().Msg("Updating configuration...")
@@ -37,34 +39,34 @@ func main() {
 	keychainPath := "../data/keychain.json"
 	p12Path := "../data/key.p12"
 
-	if err := utl.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.logDir=", "java-options=-Dcryptomator.logDir="+logDir); err != nil {
+	if err := files.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.logDir=", "java-options=-Dcryptomator.logDir="+logDir); err != nil {
 		log.Fatal().Err(err).Msg("Cannot set logDir")
 	}
-	if err := utl.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.pluginDir=", "java-options=-Dcryptomator.pluginDir="+pluginDir); err != nil {
+	if err := files.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.pluginDir=", "java-options=-Dcryptomator.pluginDir="+pluginDir); err != nil {
 		log.Fatal().Err(err).Msg("Cannot set pluginDir")
 	}
-	if err := utl.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.settingsPath=", "java-options=-Dcryptomator.settingsPath="+settingsPath); err != nil {
+	if err := files.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.settingsPath=", "java-options=-Dcryptomator.settingsPath="+settingsPath); err != nil {
 		log.Fatal().Err(err).Msg("Cannot set settingsPath")
 	}
-	if err := utl.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.ipcPortPath=", "java-options=-Dcryptomator.ipcPortPath="+ipcPortPath); err != nil {
+	if err := files.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.ipcPortPath=", "java-options=-Dcryptomator.ipcPortPath="+ipcPortPath); err != nil {
 		log.Fatal().Err(err).Msg("Cannot set ipcPortPath")
 	}
-	if err := utl.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.ipcSocketPath=", "java-options=-Dcryptomator.ipcSocketPath="+ipcSocketPath); err != nil {
+	if err := files.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.ipcSocketPath=", "java-options=-Dcryptomator.ipcSocketPath="+ipcSocketPath); err != nil {
 		log.Fatal().Err(err).Msg("Cannot set ipcSocketPath")
 	}
-	if err := utl.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.integrationsWin.keychainPaths=", "java-options=-Dcryptomator.integrationsWin.keychainPaths="+keychainPath); err != nil {
+	if err := files.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.integrationsWin.keychainPaths=", "java-options=-Dcryptomator.integrationsWin.keychainPaths="+keychainPath); err != nil {
 		log.Fatal().Err(err).Msg("Cannot set keychainPath")
 	}
-	if err := utl.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.p12Path=", "java-options=-Dcryptomator.p12Path="+p12Path); err != nil {
+	if err := files.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.p12Path=", "java-options=-Dcryptomator.p12Path="+p12Path); err != nil {
 		log.Fatal().Err(err).Msg("Cannot set p12Path")
 	}
-	if err := utl.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.disableUpdateCheck=", "java-options=-Dcryptomator.disableUpdateCheck=true"); err != nil {
+	if err := files.ReplaceByPrefix(filepath.Join(app.AppPath, "app", "Cryptomator.cfg"), "java-options=-Dcryptomator.disableUpdateCheck=", "java-options=-Dcryptomator.disableUpdateCheck=true"); err != nil {
 		log.Fatal().Err(err).Msg("Cannot set disableUpdateCheck")
 	}
 
 	// Create folders
-	_ = utl.CreateFolder(filepath.Join(app.DataPath, "log"))
-	_ = utl.CreateFolder(filepath.Join(app.DataPath, "plugins"))
+	_ = os.MkdirAll(filepath.Join(app.DataPath, "log"), 0o755)
+	_ = os.MkdirAll(filepath.Join(app.DataPath, "plugins"), 0o755)
 
 	// Update settings
 	settingsFile := filepath.Join(app.DataPath, "settings.json")
